@@ -1,12 +1,24 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('root')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
 
   @Get()
-  getInfo() {
-    return this.appService.getInfo();
+  @ApiOperation({
+    summary: 'Endpoint raiz da API',
+    description: 'Retorna informações básicas sobre a API',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'API em funcionamento',
+  })
+  getRoot() {
+    return {
+      status: 'OK',
+      version: '1.0',
+      description: 'API de Tarefas - Infoweb 2025',
+    };
   }
 }
